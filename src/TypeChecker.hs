@@ -7,11 +7,15 @@ import Parser
     ( Term(LVar, LAbs, LApp), Type(Arrow, Type), lambdaParser )
 import Text.Parsec ( parse )
 
+-- Context ADT --
+
 type Name = String
 
 data Formula = Formula { var :: Name, varType :: Type } deriving Show
 
 type Context = [Formula] 
+
+-- Functions for Context --
 
 addFormula :: Context -> Name -> Type -> Context
 addFormula ctx name ttype = Formula name ttype : ctx
@@ -32,6 +36,8 @@ getTypeFromContext ctx name = case filter (\x -> var x == name) ctx of
     l | null $ tail l ->  Right $ varType $ head l
     l -> Left $ "Error: Ambiguous type binding " ++ show (map showFormula l) ++ " !!!" 
 
+-- Type Checking --
+
 typeOf :: Context -> Term -> Either String Type
 typeOf ctx term = do 
     case term of
@@ -51,7 +57,6 @@ typeOf ctx term = do
                                      ++ "Expected " ++ show (showType type1)
                                      ++ ", but found " ++ show (showType tT2) ++ " !!!"
                     _ -> Left $ "Error: Arrow type expected, but " ++ show (showType tT1) ++ " found !!!"
-
 
 checkTypeStr :: String -> [String]
 checkTypeStr input  = case parse lambdaParser "" input of

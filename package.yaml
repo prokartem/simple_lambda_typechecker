@@ -24,6 +24,7 @@ dependencies:
 - text
 - parsec
 - optparse-applicative
+- HUnit
 
 library:
   source-dirs: src/
