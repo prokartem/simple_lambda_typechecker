@@ -14,7 +14,7 @@
 
 ### Additional
 - Comments `{- some text -}`
-- Term separator (currently raise error if placed in the end of file) `;`
+- Term separator (if placed in the end of file, parser raises error) `;`
 
 ### Correct input
 ```
