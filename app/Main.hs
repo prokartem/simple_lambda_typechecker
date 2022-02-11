@@ -1,6 +1,6 @@
 module Main where
 
-import LambdaEvaluation
+import TypeChecker
 
 main :: IO ()
 main = someFunc
