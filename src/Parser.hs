@@ -10,7 +10,7 @@ import Text.Parsec.Token
                      reserved, semiSep1, whiteSpace) )
 import Text.Parsec.Language ( emptyDef )
 import qualified GHC.Exts as GHC.Types
-import Data.Functor.Identity
+import Data.Functor.Identity ( Identity )
 import Text.Parsec.Expr (buildExpressionParser, Assoc (AssocLeft, AssocRight, AssocNone), Operator (Prefix, Infix))
 import Text.Parsec.String (Parser)
 
@@ -53,7 +53,7 @@ typeParser :: Parser Type
 typeParser = buildExpressionParser table typeExpr
     where
         table = [ [Infix (m_reserved "->" >> return Arrow) AssocRight ] ]
-        typeExpr = 
+        typeExpr =
             -- type Arrow ?
             m_parens typeParser
             -- simple Type 
@@ -63,7 +63,7 @@ termParser :: Parser Term
 termParser = buildExpressionParser table termExpr
     where
         table = [ [Infix (m_reserved "$" >> return LApp) AssocLeft ] ]
-        termExpr = 
+        termExpr =
             -- lambda-abstraction ?
             do { m_reserved "lambda"
                 -- parse name of variable
@@ -80,13 +80,5 @@ termParser = buildExpressionParser table termExpr
                 -- lambda-variable
                 <|> fmap LVar m_identifier
 
-lambdaParser :: Parser Term
-lambdaParser = m_whiteSpace >> termParser <* eof
-
--- Main function --
-
--- pars :: String -> Either String Term
--- pars :: String -> Either ParseError Term
--- pars  = case parse lambdaParser "" of
---     Left err -> show err
---     Right term -> showType 
+lambdaParser :: Parser [Term]
+lambdaParser = m_whiteSpace >> m_semiSep1 termParser <* eof

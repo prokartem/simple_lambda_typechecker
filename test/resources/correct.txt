@@ -1,0 +1,40 @@
+{- simple -}
+lambda x : Y -> X. 
+    lambda y : Y. 
+        x $ y;
+
+{- 1.1.1 -}
+lambda x : A -> A -> G.
+    lambda y : A.
+        lambda z : B.
+            x $ y $ y;
+
+{- 1.1.2 -}
+lambda x : (A -> G) -> A.
+    lambda y : A -> G. 
+        lambda z : B. 
+            y $ (x $ y);
+
+{- 1.2.1 -}
+lambda x : A -> B -> G. 
+    lambda y : A -> B. 
+        lambda z : A. 
+            x $ z $ (y $ z);
+
+{- 1.2.2 -}
+lambda y : G -> A -> B. 
+    lambda z : G. 
+        lambda x : (A -> B) -> B. 
+            x $ (y $ z);
+
+{- 1.2.3 -}
+lambda x : A -> A -> B.
+    lambda y : A.
+        lambda z : B -> G.
+            z $ (x $ y $ y);
+
+{- 1.2.4 -}
+lambda y : B -> A -> G.
+    lambda z : A.
+        lambda x : A -> B.
+            y $ (x $ z) $ z

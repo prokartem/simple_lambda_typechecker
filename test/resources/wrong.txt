@@ -1,0 +1,24 @@
+{- Parameter type mismatch -}
+lambda x : Y -> X. 
+    lambda y : WrongType. 
+        x $ y;
+
+{- Arrow type expected -}
+lambda x : A -> G.
+    lambda y : A.
+            x $ y $ y;
+
+{- Ambiguous type binding-}
+lambda x : (A -> G) -> A.
+    lambda y : A -> G. 
+        lambda y : B. 
+            y $ (x $ y);
+
+{- Variable lookup failure -}
+lambda x : A -> B -> G. 
+    lambda y : A -> B. 
+        lambda z : A. 
+            x $ z $ (y $ w);
+
+{- Empty Context -}
+y $ (x $ z) $ i
