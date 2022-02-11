@@ -5,7 +5,7 @@
 ### Terms
 `t` — term 
 - Variable `x`
-- Abstraction `lambda x: T. t`
+- Abstraction `lambda x : T. t`
 - Application `t $ t`
 
 ### Types
