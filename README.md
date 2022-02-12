@@ -2,15 +2,15 @@
 
 ## Syntax
 
+### Types
+`T` — type
+- Arrow `T -> T`
+
 ### Terms
 `t` — term 
 - Variable `x`
 - Abstraction `lambda x : T. t`
 - Application `t $ t`
-
-### Types
-`T` — type
-- Arrow `T -> T`
 
 ### Additional
 - Comments `{- some text -}`
